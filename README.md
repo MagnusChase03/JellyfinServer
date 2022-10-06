@@ -64,8 +64,10 @@ To build this project yourself, you are going to need docker and docker compose
 All you have to do is
 
 1) Clone the repo
+2) Put shows or movies in the mounted /Media folder
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 ## Usage
 

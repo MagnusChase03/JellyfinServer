@@ -4,6 +4,11 @@ services:
     build: ./nginx
     ports:
       - "8000:80"
+      - "8001:443"
+    volumes:
+      - type: volume
+        source: ssl
+        target: /ssl
     depends_on: 
       - jellyfin
   jellyfin:
@@ -15,6 +20,9 @@ services:
       - type: volume
         source: jellyfinWeb
         target: /usr/share/jellyfin/web
+      - type: volume
+        source: ssl
+        target: /ssl
       - type: bind
         source: /Media
         target: /Media
@@ -22,3 +30,4 @@ services:
 volumes:
   jellyfinDB:
   jellyfinWeb:
+  ssl:

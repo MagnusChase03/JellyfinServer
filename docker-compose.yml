@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  nginx:
+    build: ./nginx
+    ports:
+      - "8000:80"
+    depends_on: 
+      - jellyfin
+  jellyfin:
+    build: ./jellyfin

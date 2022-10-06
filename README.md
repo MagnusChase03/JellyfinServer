@@ -80,6 +80,8 @@ docker compose up
 
 The jellyfin server should then be mapped to `localhost:8000`
 
+If you want to use https, there is a setting in the jellyfin dashboard to enable it. The ssl file used is located at `/ssl/jellyfin.pfx`
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->

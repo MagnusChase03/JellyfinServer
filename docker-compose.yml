@@ -8,3 +8,17 @@ services:
       - jellyfin
   jellyfin:
     build: ./jellyfin
+    volumes:
+      - type: volume
+        source: jellyfinDB
+        target: /var/lib/jellyfin
+      - type: volume
+        source: jellyfinWeb
+        target: /usr/share/jellyfin/web
+      - type: bind
+        source: /Media
+        target: /Media
+
+volumes:
+  jellyfinDB:
+  jellyfinWeb:

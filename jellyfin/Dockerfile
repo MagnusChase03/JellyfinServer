@@ -8,6 +8,7 @@ run echo "deb [arch=$( dpkg --print-architecture )] https://repo.jellyfin.org/$(
 
 run apt update
 run apt install -y jellyfin
+run apt install -y ffmpeg
 
 run mkdir ssl
 run openssl req -x509 -newkey rsa:4096 -keyout /ssl/privkey.pem -out /ssl/cert.pem -days 365 -nodes -subj '/CN=jellyfin.lan'

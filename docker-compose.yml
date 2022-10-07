@@ -7,7 +7,7 @@ services:
       - "8001:443"
     volumes:
       - type: volume
-        source: ssl
+        source: jellyfinSsl
         target: /ssl
     depends_on: 
       - jellyfin
@@ -21,7 +21,7 @@ services:
         source: jellyfinWeb
         target: /usr/share/jellyfin/web
       - type: volume
-        source: ssl
+        source: jellyfinSsl
         target: /ssl
       - type: bind
         source: /Media
@@ -30,4 +30,4 @@ services:
 volumes:
   jellyfinDB:
   jellyfinWeb:
-  ssl:
+  jellyfinSsl:

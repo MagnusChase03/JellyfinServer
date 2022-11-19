@@ -3,7 +3,8 @@ FROM ubuntu:22.04
 RUN apt update -y \
     && apt upgrade -y \
     && apt install ffmpeg -y \
-    && apt install wget -y
+    && apt install wget -y \
+    && apt install curl -y
 
 RUN mkdir -p /opt/jellyfin
 
@@ -26,7 +27,5 @@ VOLUME /opt/jellyfin/cache
 VOLUME /opt/jellyfin/config
 VOLUME /opt/jellyfin/log
 VOLUME /opt/jellyfin/movies
-
-EXPOSE 8096
 
 CMD ["/opt/jellyfin/run.sh"]

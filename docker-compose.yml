@@ -2,14 +2,25 @@ version: "3.9"
 services:
   jellyfin:
     build: ./jellyfin
-    ports:
-      - "8096:8096"
+    healthcheck:
+      test: curl -f http://localhost:8096 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     volumes:
       - ./movies:/opt/jellyfin/movies
       - jellyfinData:/opt/jellyfin/data
       - jellyfinCache:/opt/jellyfin/cache
       - jellyfinConfig:/opt/jellyfin/config
       - jellyfinLog:/opt/jellyfin/log
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    depends_on:
+      jellyfin:
+        condition: service_healthy
 
 volumes:
   jellyfinData:

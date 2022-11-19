@@ -13,4 +13,5 @@ run:
 	-v jellfinData:/opt/jellyfin/data \
 	-v jellfinCache:/opt/jellyfin/cache \
 	-v jellfinConfig:/opt/jellyfin/config \
-	-v jellfinLog:/opt/jellyfin/log $(tag)
+	-v jellfinLog:/opt/jellyfin/log \
+	-v /home/benio/Code/JellyfinServer/movies:/opt/jellyfin/movies $(tag)

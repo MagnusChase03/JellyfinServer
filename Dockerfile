@@ -15,7 +15,8 @@ RUN wget https://repo.jellyfin.org/releases/server/linux/stable/combined/jellyfi
     && mkdir -p data \
     && mkdir -p cache \
     && mkdir -p config \
-    && mkdir -p log
+    && mkdir -p log \
+    && mkdir -p movies
 
 COPY run.sh .
 RUN chmod +x run.sh
@@ -24,6 +25,7 @@ VOLUME /opt/jellyfin/data
 VOLUME /opt/jellyfin/cache
 VOLUME /opt/jellyfin/config
 VOLUME /opt/jellyfin/log
+VOLUME /opt/jellyfin/movies
 
 EXPOSE 8096
 

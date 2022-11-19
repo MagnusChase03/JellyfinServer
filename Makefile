@@ -1,17 +1,14 @@
-tag = jellyfin
-
 all: build
+
 build:
-	docker build . -t $(tag)
-	docker volume create jellfinData
-	docker volume create jellfinCache
-	docker volume create jellfinConfig
-	docker volume create jellfinLog
+	docker compose build
 
 run:
-	docker run -d -p 8096:8096 \
-	-v jellfinData:/opt/jellyfin/data \
-	-v jellfinCache:/opt/jellyfin/cache \
-	-v jellfinConfig:/opt/jellyfin/config \
-	-v jellfinLog:/opt/jellyfin/log \
-	-v /home/benio/Code/JellyfinServer/movies:/opt/jellyfin/movies $(tag)
+	docker compose up -d
+
+stop:
+	docker compose down
+
+clean:
+	docker system prune
+	docker volume prune

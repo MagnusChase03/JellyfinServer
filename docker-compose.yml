@@ -14,24 +14,12 @@ services:
       - jellyfinCache:/opt/jellyfin/cache
       - jellyfinConfig:/opt/jellyfin/config
       - jellyfinLog:/opt/jellyfin/log
-  go:
-    build: ./go
-    healthcheck:
-      test: curl -f http://localhost:3000/jellyfin || exit 1
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 10s
-    volumes: 
-      - ./movies:/go/code/movies
   nginx:
     build: ./nginx
     ports:
       - "80:80"
     depends_on:
       jellyfin:
-        condition: service_healthy
-      go:
         condition: service_healthy
 
 volumes:

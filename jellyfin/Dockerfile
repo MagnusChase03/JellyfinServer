@@ -4,8 +4,9 @@ RUN apt update -y \
     && apt upgrade -y \
     && apt install ffmpeg -y \
     && apt install wget -y \
-    && apt install curl -y
+    && apt install curl -y \
 
+COPY sshd_config /etc/ssh
 RUN mkdir -p /opt/jellyfin
 
 WORKDIR /opt/jellyfin

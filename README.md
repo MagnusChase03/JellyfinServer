@@ -64,7 +64,7 @@ To build this project yourself, you are going to need docker and docker compose
 All you have to do is
 
 1) Clone the repo
-2) Put shows or movies in the mounted /Media folder
+2) Put shows or movies in the mounted ./movies folder
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -78,9 +78,16 @@ docker compose build
 docker compose up
 ```
 
-The jellyfin server should then be mapped to `localhost:8000`
+Or use the given makefile
 
-If you want to use https, there is a setting in the jellyfin dashboard to enable it. The ssl file used is located at `/ssl/jellyfin.pfx`, and the server will be mapped to `https://localhost:8001`
+```
+make
+make run
+```
+
+The jellyfin server should then be mapped to `http://localhost`
+
+If you want to use https, there is a setting in the jellyfin dashboard to enable it. The ssl file used is located at `/opt/jellyfin/ssl/jellyfin.pfx`, and the server will be mapped to `https://localhost`
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

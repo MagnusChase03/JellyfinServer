@@ -17,7 +17,7 @@ services:
   go:
     build: ./go
     healthcheck:
-      test: curl -f http://localhost:3000/go || exit 1
+      test: curl -f http://localhost:3000/jellyfin || exit 1
       interval: 10s
       timeout: 5s
       retries: 5

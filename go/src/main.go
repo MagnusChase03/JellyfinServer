@@ -3,25 +3,28 @@ package main
 import (
 
 	"net/http"
+	"path/filepath"
 	"github.com/gin-gonic/gin"
 
 )
 
-type message struct {
+// type message struct {
 
-	Status string `json:"status"`
+// 	Status string `json:"status"`
 
-}
+// }
 
-var welcomes = []message {{Status: "Hello World!"},}
+// var welcomes = []message {{Status: "Hello World!"},}
 
 func main() {
 
 	router := gin.Default()
 	router.Use(CORSMiddleware())
+	router.LoadHTMLGlob("templates/*")
+	router.MaxMultipartMemory = 8 << 20
 
-	router.GET("/go", getWelcome)
-	router.POST("/go", postWelcome)
+	router.GET("/jellyfin", renderForm)
+	router.POST("/jellyfin", uploadFile)
 
 	router.Run("0.0.0.0:3000")
 
@@ -43,23 +46,39 @@ func CORSMiddleware() gin.HandlerFunc {
 	}
 }
 
-func getWelcome(c *gin.Context) {
+func renderForm(c *gin.Context) {
 
-	c.IndentedJSON(http.StatusOK, welcomes)
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{})
+
+}
+
+func uploadFile(c *gin.Context) {
+
+	file, _ := c.FormFile("file")
+	fpath := filepath.Join("./movies", file.Filename)
+	c.SaveUploadedFile(file, fpath)
+	
+	c.HTML(http.StatusOK, "index.tmpl", gin.H{})
 
 }
 
-func postWelcome(c *gin.Context) {
+// func getWelcome(c *gin.Context) {
 
-	var newWelcome message
+// 	c.IndentedJSON(http.StatusOK, welcomes)
 
-	if err := c.BindJSON(&newWelcome); err != nil {
+// }
 
-		return
+// func postWelcome(c *gin.Context) {
 
-	}
+// 	var newWelcome message
 
-	welcomes = append(welcomes, newWelcome)
-	c.IndentedJSON(http.StatusCreated, newWelcome)
+// 	if err := c.BindJSON(&newWelcome); err != nil {
 
-}
+// 		return
+
+// 	}
+
+// 	welcomes = append(welcomes, newWelcome)
+// 	c.IndentedJSON(http.StatusCreated, newWelcome)
+
+// }

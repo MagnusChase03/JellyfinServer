@@ -1,33 +1,40 @@
 version: "3.9"
 services:
-  nginx:
-    build: ./nginx
-    ports:
-      - "8000:80"
-      - "8001:443"
-    volumes:
-      - type: volume
-        source: jellyfinSsl
-        target: /ssl
-    depends_on: 
-      - jellyfin
   jellyfin:
     build: ./jellyfin
+    healthcheck:
+      test: curl -f http://localhost:8096 || http://localhost:8920 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
     volumes:
-      - type: volume
-        source: jellyfinDB
-        target: /var/lib/jellyfin
-      - type: volume
-        source: jellyfinWeb
-        target: /usr/share/jellyfin/web
-      - type: volume
-        source: jellyfinSsl
-        target: /ssl
-      - type: bind
-        source: /Media
-        target: /Media
+      - ./movies:/opt/jellyfin/movies
+      - jellyfinData:/opt/jellyfin/data
+      - jellyfinCache:/opt/jellyfin/cache
+      - jellyfinConfig:/opt/jellyfin/config
+      - jellyfinLog:/opt/jellyfin/log
+      - jellyfinSsl:/opt/jellyfin/ssl
+  nginx:
+    build: ./nginx
+    healthcheck:
+      test: curl -f http://localhost:80 || http://localhost:443 || exit 1
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 2s
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - jellyfinSsl:/etc/nginx/ssl
+    depends_on:
+      jellyfin:
+        condition: service_healthy
 
 volumes:
-  jellyfinDB:
-  jellyfinWeb:
+  jellyfinData:
+  jellyfinCache:
+  jellyfinConfig:
+  jellyfinLog:
   jellyfinSsl:

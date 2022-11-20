@@ -1,20 +1,36 @@
-from ubuntu
+FROM ubuntu:22.04
 
-run apt update
-run apt install -y curl gnupg openssl
+RUN apt update -y \
+    && apt upgrade -y \
+    && apt install ffmpeg -y \
+    && apt install wget -y \
+    && apt install curl -y \
+    && apt install openssl -y
 
-run curl -fsSL https://repo.jellyfin.org/ubuntu/jellyfin_team.gpg.key | gpg --dearmor -o /etc/apt/trusted.gpg.d/jellyfin.gpg
-run echo "deb [arch=$( dpkg --print-architecture )] https://repo.jellyfin.org/$( awk -F'=' '/^ID=/{ print $NF }' /etc/os-release ) $( awk -F'=' '/^VERSION_CODENAME=/{ print $NF }' /etc/os-release ) main" | tee /etc/apt/sources.list.d/jellyfin.list
+RUN mkdir -p /opt/jellyfin
+WORKDIR /opt/jellyfin
 
-run apt update
-run apt install -y jellyfin
-run apt install -y ffmpeg
+RUN wget https://repo.jellyfin.org/releases/server/linux/stable/combined/jellyfin_10.8.7_amd64.tar.gz \
+    && tar xvzf jellyfin_10.8.7_amd64.tar.gz \
+    && ln -s jellyfin_10.8.7 jellyfin \
+    && mkdir -p data \
+    && mkdir -p cache \
+    && mkdir -p config \
+    && mkdir -p log \
+    && mkdir -p movies \ 
+    && mkdir ssl
 
-run mkdir ssl
-run openssl req -x509 -newkey rsa:4096 -keyout /ssl/privkey.pem -out /ssl/cert.pem -days 365 -nodes -subj '/CN=jellyfin.lan'
-run openssl pkcs12 -export -out /ssl/jellyfin.pfx -inkey /ssl/privkey.pem -in /ssl/cert.pem -passout pass:
+RUN openssl req -x509 -newkey rsa:4096 -keyout ./ssl/privkey.pem -out ./ssl/cert.pem -days 365 -nodes -subj '/CN=localhost' \
+    && openssl pkcs12 -export -out ./ssl/jellyfin.pfx -inkey ./ssl/privkey.pem -in ./ssl/cert.pem -passout pass:
 
-run mkdir Media
-workdir /var/lib
+COPY run.sh .
+RUN chmod +x run.sh
 
-cmd jellyfin --webdir /usr/share/jellyfin/web
+VOLUME /opt/jellyfin/data
+VOLUME /opt/jellyfin/cache
+VOLUME /opt/jellyfin/config
+VOLUME /opt/jellyfin/log
+VOLUME /opt/jellyfin/movies
+VOLUME /opt/jellyfin/ssl
+
+CMD ["/opt/jellyfin/run.sh"]

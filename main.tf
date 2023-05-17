@@ -18,14 +18,8 @@ provider "docker" {}
 
 resource "docker_image" "jellyfin" {
 
-    name = "jellyfin"
+    name = "jellyfin/jellyfin"
     keep_locally = false
-
-    build {
-
-        context = "."
-
-    }
 
 }
 

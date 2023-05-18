@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo mkdir /app
+sudo mkdir -p /app/media
 sudo mv /tmp/docker-compose.yml /app
 sudo chown -R vagrant:vagrant /app
 

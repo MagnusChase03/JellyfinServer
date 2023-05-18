@@ -10,7 +10,7 @@
 
 ## Install
 
-**Run**: `cd packer && packer build jellyfin.pkr.hcl`
+**Run**: `cd packer && packer build ubuntu.pkr.hcl`
 
 ## Usage
 

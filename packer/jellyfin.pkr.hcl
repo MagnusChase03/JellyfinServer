@@ -39,6 +39,8 @@ build {
 
     inline = [
 
+      "sudo mkdir /media",
+      "sudo chown -R vagrant:vagrant /media",
       "sudo mkdir /docker",
       "sudo mv /tmp/docker-compose.yml /docker",
       "sudo chown -R vagrant:vagrant /docker",

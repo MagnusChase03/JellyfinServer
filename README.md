@@ -2,20 +2,16 @@
 
 ## Dependencies
 
-* **Docker**
+* **Packer**
 
-* **Terraform**
+* **Vagrant**
 
 ## Install
 
-**Run**: `terraform init`
+**Run**: `cd packer && packer build jellyfin.pkr.hcl`
 
 ## Usage
 
-**Run**: `terraform apply -var "media=[path]"` where `[path]` is the path to the media directory on the host machine
+**Run**: `cd vagrant && vagrant up`
 
-**Variables**:
-
-* `media=[path]`
-
-* `port=[port]` (optional). The jellyfin server will be run on designated port
+The jellyfin server will then be running on port `8096`

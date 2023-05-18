@@ -1,4 +1,4 @@
-require_relative "variables.rb"
+require_relative "./vagrant/variables.rb"
 
 Vagrant.configure("2") do |config|
 

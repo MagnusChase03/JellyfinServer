@@ -1,0 +1,1 @@
+MEDIA_PATH = "/home/benio/Documents/Movies"

@@ -6,6 +6,8 @@
 
 * **Vagrant**
 
+* **VirtualBox**
+
 ## Install
 
 **Run**: `cd packer && packer build jellyfin.pkr.hcl`

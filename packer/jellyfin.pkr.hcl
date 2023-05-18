@@ -13,18 +13,17 @@ build {
 
   provisioner "file" {
 
-    source = "./install.sh"
-    destination = "/tmp/install.sh"
+    source = "./scripts/"
+    destination = "/tmp"
 
   }
 
   provisioner "file" {
 
-    source = "./docker-compose.yml"
-    destination = "/tmp/docker-compose.yml"
+    source = "./service/"
+    destination = "/tmp"
 
   }
-
 
   provisioner "shell" {
 

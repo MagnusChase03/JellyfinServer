@@ -21,7 +21,13 @@ sudo chown -R vagrant:vagrant /media
 
 sudo mkdir /docker
 sudo mv /tmp/docker-compose.yml /docker
+sudo mv /tmp/start.sh /docker
+sudo chmod +x /docker/start.sh
 sudo chown -R vagrant:vagrant /docker
+
+sudo mv /tmp/jellyfin.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable jellyfin.service
 
 sudo service docker start
 cd /docker

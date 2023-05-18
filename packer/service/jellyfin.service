@@ -1,0 +1,11 @@
+[Unit]
+Desription=Jellyfin Docker Service
+After=docker.service
+
+[Service]
+WorkingDirectory=/docker
+ExecStart=/docker/start.sh
+Type=oneshot
+
+[Install]
+WantedBy=default.target

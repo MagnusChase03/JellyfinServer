@@ -18,4 +18,4 @@
 
 **Run**: `vagrant up`
 
-The jellyfin server will then be running on port `8096`
+The jellyfin server will then be running on port `8096` and a filebrowser server on port `8080`

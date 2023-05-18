@@ -7,7 +7,12 @@ services:
       - "/app/media:/media"
     ports:
       - "8096:8096"
-
+  filebrowser:
+    image: filebrowser/filebrowser
+    volumes:
+      - "/app/media:/srv"
+    ports:
+      - "8080:80"
 volumes:
   jellyfin_config:
   jellyfin_cache:

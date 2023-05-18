@@ -16,3 +16,13 @@ echo \
 
 sudo apt-get -y update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+sudo chown -R vagrant:vagrant /media
+
+sudo mkdir /docker
+sudo mv /tmp/docker-compose.yml /docker
+sudo chown -R vagrant:vagrant /docker
+
+sudo service docker start
+cd /docker
+sudo docker compose pull

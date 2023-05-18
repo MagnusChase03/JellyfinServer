@@ -18,16 +18,6 @@ build {
 
   }
 
-  provisioner "shell" {
-
-    inline = [
-
-      "bash /tmp/install.sh"
-
-    ]
-
-  }
-
   provisioner "file" {
 
     source = "./docker-compose.yml"
@@ -35,15 +25,12 @@ build {
 
   }
 
+
   provisioner "shell" {
 
     inline = [
 
-      "sudo mkdir /media",
-      "sudo chown -R vagrant:vagrant /media",
-      "sudo mkdir /docker",
-      "sudo mv /tmp/docker-compose.yml /docker",
-      "sudo chown -R vagrant:vagrant /docker",
+      "bash /tmp/install.sh"
 
     ]
 
